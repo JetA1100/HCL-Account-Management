@@ -30,65 +30,37 @@ public class AccountController {
 	
 	@RequestMapping(method = RequestMethod.GET, name = "Get Account By Name and URL", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAccount(@RequestParam(name = "name") String name, @RequestParam(name = "url") String url) {
-		try {
-			return new ResponseEntity<>(accountService.get(name, url), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.get(name, url), HttpStatus.OK);
 	}
 	
 	@GetMapping(name = "Get Account By ID", value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAccountById(@PathVariable @Positive(message = "Invalid ID") int id) {
-		try {
-			return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.findById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(name = "Add Account", value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> addAccount(@RequestBody @Valid AccountVO accountVO) {
-		try {
-			return new ResponseEntity<>(accountService.add(accountVO), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.add(accountVO), HttpStatus.OK);
 	}
 	
 	@GetMapping(name = "Get Accounts", value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAccounts() {
-		try {
-			return new ResponseEntity<>(accountService.getAll(), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.getAll(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(name = "Delete Account By Name and URL", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> delete(@RequestParam(name = "name") String name, @RequestParam(name = "url") String url) {
-		try {
-			return new ResponseEntity<>(accountService.delete(name, url), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.delete(name, url), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(name = "Delete Account By ID", value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteAccountById(@PathVariable @Positive(message = "Invalid ID") int id) {
-		try {
-			return new ResponseEntity<>(accountService.deleteById(id), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return new ResponseEntity<>(accountService.deleteById(id), HttpStatus.OK);
 	}
 	
 	@PutMapping(name = "Update Account By ID", value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateAccountById(@PathVariable @Positive(message = "Invalid ID") int id, @RequestBody @Valid AccountVO accountVO) {
-		try {
-			AccountVO existAccount = accountService.findById(id);
-			return new ResponseEntity<>(accountService.updateById(accountVO, id), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		AccountVO existAccount = accountService.findById(id);
+		return new ResponseEntity<>(accountService.updateById(accountVO, id), HttpStatus.OK);
 	}
 }

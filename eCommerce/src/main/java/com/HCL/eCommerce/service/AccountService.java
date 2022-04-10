@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import com.HCL.eCommerce.entity.Account;
+import com.HCL.eCommerce.exception.ExistingAccountException;
 import com.HCL.eCommerce.exception.NoRecordsException;
 import com.HCL.eCommerce.repository.AccountRepository;
 import com.HCL.eCommerce.vo.AccountVO;
@@ -23,6 +24,12 @@ public class AccountService {
 	AccountRepository accountRepository;
 	
 	public boolean add(AccountVO accountVO) {
+		String name = accountVO.getName();
+		String url = accountVO.getUrl();
+		Optional<Account> accountEx = accountRepository.findByNameAndUrl(name, url);
+		if (accountEx.isPresent()) {
+			throw new ExistingAccountException("Account with Name " + name + " or URL " + url + " exists");
+		}
 		Account account = new Account();
 		BeanUtils.copyProperties(accountVO, account);
 		try {
@@ -61,7 +68,11 @@ public class AccountService {
 	}
 	
 	public boolean updateById(AccountVO accountVO, int id) {
-		Account account = accountRepository.findById(id).get();
+		Optional<Account> accountEx = accountRepository.findById(id);
+		if (!accountEx.isPresent()) {
+			throw new NoRecordsException("No Records for Account for ID " + id);
+		}
+		Account account = accountEx.get();
 		//BeanUtils.copyProperties(accountVO, account);
 		account.setUrl(accountVO.getUrl());
 		account.setName(accountVO.getName());

@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-//import javax.persistence.Version;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,9 +22,6 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	//@Version
-	//private Long version;
 	
 	private String url;
 	private String name;
