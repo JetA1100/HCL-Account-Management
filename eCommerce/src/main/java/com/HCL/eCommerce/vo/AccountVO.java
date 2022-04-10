@@ -7,17 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AccountVO {
-	private int id;
 	@NotEmpty
 	private String url;
 	@NotEmpty
 	private String name;
 	@NotEmpty
 	private String bio;
-	
-	public int getId() {
-		return id;
-	}
 	
 	public String getUrl() {
 		return url;
