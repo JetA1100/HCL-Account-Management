@@ -7,6 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AccountVO {
+	
+	private int id;
+	
 	@NotEmpty
 	private String url;
 	@NotEmpty
