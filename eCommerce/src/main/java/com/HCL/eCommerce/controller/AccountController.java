@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.HCL.eCommerce.service.AccountService;
 import com.HCL.eCommerce.vo.AccountVO;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.HCL.eCommerce.exception.ErrorMessage;
 
+@Api(value = "manage authors", description = "This controller contains all the endpoints that manage account information", tags = "Account Info, Manage Account")
 @Validated
 @RestController
 @RequestMapping("/account")
@@ -28,6 +33,7 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 	
+	@ApiOperation(value = "Get Account Details by Name and URL", response = ResponseEntity.class, tags = "Fetch details of account using Name and URL", nickname = "/author")
 	@RequestMapping(method = RequestMethod.GET, name = "Get Account By Name and URL", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAccount(@RequestParam(name = "name") String name, @RequestParam(name = "url") String url) {
 		return new ResponseEntity<>(accountService.get(name, url), HttpStatus.OK);
