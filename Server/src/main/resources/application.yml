@@ -1,8 +1,6 @@
 server:
   port: 8081
 spring:
-  main:
-    allow-circular-references: true
   profiles:
     active: dev
   jpa:
